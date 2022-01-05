@@ -27,12 +27,13 @@ int main(void)
 	// Lock the file
 	fcntl(fp, F_SETLK, &fl);
 
-	// Write random number into the read buffer
-	write(readBuffer, nbr, sizeof(readBuffer));
-	sprintf(readBuffer, "%d\n", randomNumber);
-	// Write random number into file 
-	write(fp, readBuffer, sizeof(readBuffer));
+	for (int i = 0; i < 10; i++)
+	{
+		ssize_t random = read(nbr, readBuffer, strlen(readBuffer));
+		sprintf(readBuffer, "%d\n", randomNumber);
+		// Write random number into file 
+		write(fp, randomNumber, sizeof(randomNumber));
+	}
 	
-	printf("The number %d has been written\n", readBuffer);
 	return (0);
 }
